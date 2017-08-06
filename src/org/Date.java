@@ -20,7 +20,7 @@ class MyRead extends base{
         return true;
     }
 }
-public class Test {
+public class Date {
     public static void main(String[] args) {
         base b=new MyRead();
         b.ReadTTY("");
