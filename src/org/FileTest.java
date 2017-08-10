@@ -9,7 +9,7 @@ public class FileTest {
     public static void main(String[] args) throws IOException {
         RandomAccessFile raf=new RandomAccessFile("newfile.txt","rw");
         //用读写的方式创建随机链接文件类
-        File temp=File.createTempFile("test",".txt");
+        File temp=File.createTempFile("test",".tmp");
         //创建临时文件
         FileWriter fw=new FileWriter(temp);
         raf.seek(11);
@@ -25,6 +25,6 @@ public class FileTest {
         raf.writeBytes(buf.readLine());
         raf.close();
         buf.close();
-        temp.deleteOnExit();  //临时文件在结束时删除
+//        temp.deleteOnExit();  //临时文件在结束时删除
     }
 }

@@ -6,7 +6,6 @@ import java.io.IOException;
  * Created by sickle on 17-7-24.
  */
 class Lock{
-
 }
 public class SynchronizedTest implements Runnable{
     Lock lock=new Lock();

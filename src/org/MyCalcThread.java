@@ -44,15 +44,47 @@ class CreatNode extends RecursiveTask<Node1> {
         }
         else {
             String[] temp=str.split("\\+",2);
-            CreatNode c1=new CreatNode(mnode.leftChild,temp);
-            c1.fork();
-            CreatNode c2=new CreatNode(mnode.rightChild,temp);
-            c2.fork();
-            Node1 node = new Node1(mnode.data);
-            node.leftChild = c1.join();
-            node.rightChild = c2.join();
-            return node;
+            if(temp.length>=2) {
+                CreatNode c1 = new CreatNode(mnode.leftChild, temp);
+                c1.fork();
+                CreatNode c2 = new CreatNode(mnode.rightChild, temp);
+                c2.fork();
+                Node1 node = new Node1("+");
+                node.leftChild = c1.join();
+                node.rightChild = c2.join();
+            }
+            String[] temp1=str.split("\\-",2);
+            if(temp.length>=2) {
+                CreatNode c1 = new CreatNode(mnode.leftChild, temp1);
+                c1.fork();
+                CreatNode c2 = new CreatNode(mnode.rightChild, temp1);
+                c2.fork();
+                Node1 node = new Node1("-");
+                node.leftChild = c1.join();
+                node.rightChild = c2.join();
+            }
+            String[] temp2=str.split("\\*",2);
+            if(temp.length>=2) {
+                CreatNode c1 = new CreatNode(mnode.leftChild, temp2);
+                c1.fork();
+                CreatNode c2 = new CreatNode(mnode.rightChild, temp2);
+                c2.fork();
+                Node1 node = new Node1("*");
+                node.leftChild = c1.join();
+                node.rightChild = c2.join();
+            }
+            String[] temp3=str.split("\\/",2);
+            if(temp.length>=2) {
+                CreatNode c1 = new CreatNode(mnode.leftChild, temp3);
+                c1.fork();
+                CreatNode c2 = new CreatNode(mnode.rightChild, temp3);
+                c2.fork();
+                Node1 node = new Node1("/");
+                node.leftChild = c1.join();
+                node.rightChild = c2.join();
+            }
         }
+        return null;
     }
 }
 public class MyCalcThread {
