@@ -17,7 +17,7 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 /**
  * Created by sickle on 17-8-11.
  */
-public class HttpClientInboundHandler  extends ChannelInboundHandlerAdapter {
+public class ClientInboundHandler  extends ChannelInboundHandlerAdapter {
 
     private HttpRequest request;
     private String uri ="";
