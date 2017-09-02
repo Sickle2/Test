@@ -42,7 +42,7 @@ public class Master implements Runnable{
 //                socket.receive(inPacket);
 
                 String string = new String(bytes,0,inPacket.getLength());
-                System.out.println(string);
+//                System.out.println(string);
 //                if (!string.equals("")|string!=null){
                     byte[] buff = new byte[1024];
 
@@ -51,13 +51,15 @@ public class Master implements Runnable{
                     FileInputStream inputStream = new FileInputStream(file);
 
                     while (inputStream.read(buff)>0){
+                        System.out.println("ppppppppp");
                         outPacket.setData(buff);
 
                         socket.send(outPacket);
 
                         socket.receive(inPacket);
 
-                        System.out.println(new String(bytes, 0, inPacket.getLength()));
+
+                        System.out.println(new String(inPacket.getData(), 0, inPacket.getLength()));
 //                    }
 //                }
 //                else{

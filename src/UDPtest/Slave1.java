@@ -33,7 +33,7 @@ public class Slave1 implements Runnable{
                 socket.receive(inPacket);
 
                 string = new String(bytes,0,inPacket.getLength());
-                System.out.println(string);
+//                System.out.println(string);
                 System.out.println(new String(bytes, 0, inPacket.getLength()));
 //                if(string.equals("start")){
                     byte[] buff = "1".getBytes();
