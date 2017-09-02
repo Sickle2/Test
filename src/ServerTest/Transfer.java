@@ -26,7 +26,7 @@ public class Transfer implements Runnable{
         try {
             InetAddress address=InetAddress.getByName(strServer);
             Socket s=new Socket(address,80);;
-            BufferedReader buff=new BufferedReader(new InputStreamReader(client.getInputStream()));
+//            BufferedReader buff=new BufferedReader(new InputStreamReader(client.getInputStream()));
             outClient=new PrintStream(client.getOutputStream());
             outClient.println("HTTP/1.1 200 OK");
             outClient.println("Content-Type:text/html;charset=utf-8");
@@ -35,8 +35,8 @@ public class Transfer implements Runnable{
             outClient.flush();
 //            do {
 //                System.out.println(temp+"\r\n");
-//            }while((temp=buff.readLine())!=null);
-            //buff.close();
+//            }while((temp=buff.readLine())!=null&&!temp.equals(""));  //判断条件不足
+//            buff.close();
             server=new BufferedWriter(new OutputStreamWriter(s.getOutputStream(),"UTF-8"));
 
             serbuff=new BufferedReader(new InputStreamReader(s.getInputStream()));

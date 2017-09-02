@@ -11,13 +11,10 @@ public class MyList <T>{
     static int size=2;
     static int no=0;
     Object[] arr;
-
     public int getSize() {
         return size;
     }
-
     public MyList(){
-
         arr=new Object[size];
         arr=Arrays.copyOf(arr,arr.length,Object[].class);
     }
@@ -49,6 +46,4 @@ public class MyList <T>{
             System.arraycopy(arr, i + 1, arr, i, numMoved);
         }
     }
-
-
 }

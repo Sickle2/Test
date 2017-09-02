@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function Person() {
+            this.name="";
+            this.setName=function (name) {
+
+                this.name=name;
+            }
+            this.dis=function () {
+                console.log(this.name)
+            }
+
+        }
+        var p=new Person();
+        p.setName("adsf");
+        p.dis();
+        console.log(p.name);
+        function Stu(){
+            this.s=Person();
+            this.s();
+            delete this.s;
+        }
+        var s=new Stu();
+        s.setName("adfadsf");
+        s.dis();
+    </script>
+</head>
+<body>
+
+</body>
+</html>
