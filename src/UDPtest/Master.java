@@ -1,5 +1,7 @@
 package UDPtest;
 
+import ServerTest.Transfer;
+
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
@@ -10,13 +12,11 @@ import java.util.concurrent.CyclicBarrier;
  * Created by sickle on 17-8-31.
  */
 public class Master implements Runnable{
-    private CountDownLatch theNum = new CountDownLatch(3);
+    private static int NUM=3;
 
     private static final int DES_PORT=30000;
 
-    private static final int DATA_LAN=4096;
-
-    private InetAddress broadcastAddress = null;
+    private static final int DATA_LAN=1024;
 
     byte[] bytes = new byte[DATA_LAN];
 
@@ -31,52 +31,27 @@ public class Master implements Runnable{
         try {
             socket = new DatagramSocket();
 
-//            outPacket = new DatagramPacket(new byte[0],0,InetAddress.getByName("255.255.255.255"),DES_PORT);
-
             outPacket = new DatagramPacket("start".getBytes(),"start".getBytes().length,InetAddress.getByName("255.255.255.255"),DES_PORT);
 
+            outPacket.setData("start".getBytes());
+            socket.send(outPacket);
 
-//            while (true) {
+            socket.receive(inPacket);
+            String string = new String(bytes,0,inPacket.getLength());
+            if(NUM>0&(!string.equals("")|string!=null)){
+                System.out.println(string);
+                NUM--;
+                TransFile t1 = new TransFile(inPacket.getSocketAddress());
+                new Thread(t1).start();
+                }
 
-                outPacket.setData("start".getBytes());
-//                socket.receive(inPacket);
-
-                String string = new String(bytes,0,inPacket.getLength());
-//                System.out.println(string);
-//                if (!string.equals("")|string!=null){
-                    byte[] buff = new byte[1024];
-
-                    File file = new File("newfile.txt");
-
-                    FileInputStream inputStream = new FileInputStream(file);
-
-                    while (inputStream.read(buff)>0){
-                        System.out.println("ppppppppp");
-                        outPacket.setData(buff);
-
-                        socket.send(outPacket);
-
-                        socket.receive(inPacket);
-
-
-                        System.out.println(new String(inPacket.getData(), 0, inPacket.getLength()));
-//                    }
-//                }
-//                else{
-//                    System.out.println("error");
-//                }
-            }
-
-
-        } catch (SocketException e) {
-            e.printStackTrace();
         } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (SocketException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public static void main(String[] args) {

@@ -1,8 +1,17 @@
 package UDPtest;
 
+import io.netty.buffer.ByteBuf;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.*;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 
 /**
  * Created by sickle on 17-8-31.
@@ -11,7 +20,7 @@ public class Slave1 implements Runnable{
 
     private static final int DES_PORT=30000;
 
-    private static final int DATA_LAN=4096;
+    private static final int DATA_LAN=1024;
 
     private InetAddress broadcastAddress = null;
 
@@ -29,20 +38,29 @@ public class Slave1 implements Runnable{
             socket = new DatagramSocket(DES_PORT);
 
             String string = null;
-            while (true){
+
+            socket.receive(inPacket);
+
+            string = new String(bytes,0,inPacket.getLength());
+            System.out.println(string);
+            if (string.equals("start")){
+
+                byte[] buff = "1".getBytes();
+
+                outPacket = new DatagramPacket(buff,buff.length,inPacket.getSocketAddress());
+
+                socket.send(outPacket);
                 socket.receive(inPacket);
+                System.out.println(new String(bytes,0,inPacket.getLength()));
+                File file = new File("1.txt");
+                FileChannel fileChannel = new FileOutputStream(file).getChannel();
 
-                string = new String(bytes,0,inPacket.getLength());
-//                System.out.println(string);
-                System.out.println(new String(bytes, 0, inPacket.getLength()));
-//                if(string.equals("start")){
-                    byte[] buff = "1".getBytes();
+                ByteBuffer buffer = ByteBuffer.allocateDirect(inPacket.getLength());
+                buffer.put(inPacket.getData());
+                buffer.flip();
+                fileChannel.write(buffer);
 
-                    outPacket = new DatagramPacket(buff,buff.length,inPacket.getSocketAddress());
-
-                    socket.send(outPacket);
-//                }
-
+                fileChannel.close();
 
             }
         } catch (SocketException e) {
